@@ -38,6 +38,30 @@ public class Convertor {
 }
 
 
+public class Account {
+	
+	double summa;
+	Currency currency;
+	
+	
+	public Account(double summa, Currency currency) {
+		this.summa = summa;
+		this.currency = currency;
+	}
+	
+	
+	public void deposit(double summa, Account account){
+		
+		double summaInAccountCurrency = Convertor.fromCurrencyToCurrency(summa, currency, account.currency);
+		if (summaInAccountCurrency > account.summa){
+			System.out.println("Недостаточно средств");
+			return;
+		}else{
+		account.summa = account.summa - summaInAccountCurrency;
+		this.summa = this.summa + summa;
+		}
+	}
+}
 
 
 
@@ -47,6 +71,12 @@ public class Main {
 		
 		double result = Convertor.fromCurrencyToCurrency(100, Currency.BLR, Currency.EUR);
 		System.out.println(result);
-
+		
+		Account a1 = new Account(100, Currency.USD);
+		Account a2 = new Account(100, Currency.BLR);
+		
+		a2.deposit(100, a1);
+		System.out.println(a1.summa);
+		System.out.println(a2.summa);
 	}
 }
