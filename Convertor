@@ -1,6 +1,5 @@
 public class Convertor {
 	
-	
 	public static double fromCurrencyToUSD(double summa, Currency cur){
 		if (cur == Currency.BLR){
 			return summa/1.97;
@@ -10,6 +9,9 @@ public class Convertor {
 		}
 		if (cur == Currency.PLN){
 			return summa/3.64;
+		}
+		if (cur == Currency.USD){
+			return summa;
 		}
 		return 0;
 	}
@@ -23,6 +25,9 @@ public class Convertor {
 		if (cur == Currency.PLN){
 			return summa*3.64;
 		}
+		if (cur == Currency.USD){
+			return summa;
+		}
 		return 0;
 	}
 	
@@ -31,6 +36,7 @@ public class Convertor {
 		return fromUSDToCurrency(summaInUsd, to);
 	}
 }
+
 
 
 
