@@ -1,0 +1,46 @@
+public class Convertor {
+	
+	
+	public static double fromCurrencyToUSD(double summa, Currency cur){
+		if (cur == Currency.BLR){
+			return summa/1.97;
+		}
+		if (cur == Currency.EUR){
+			return summa*1.16;
+		}
+		if (cur == Currency.PLN){
+			return summa/3.64;
+		}
+		return 0;
+	}
+	public static double fromUSDToCurrency(double summa, Currency cur){
+		if (cur == Currency.BLR){
+			return summa*1.97;
+		}
+		if (cur == Currency.EUR){
+			return summa/1.16;
+		}
+		if (cur == Currency.PLN){
+			return summa*3.64;
+		}
+		return 0;
+	}
+	
+	public static double fromCurrencyToCurrency(double summa, Currency from, Currency to){
+		double summaInUsd = fromCurrencyToUSD(summa, from);
+		return fromUSDToCurrency(summaInUsd, to);
+	}
+}
+
+
+
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		double result = Convertor.fromCurrencyToCurrency(100, Currency.BLR, Currency.EUR);
+		System.out.println(result);
+
+	}
+}
