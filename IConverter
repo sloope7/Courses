@@ -1,0 +1,79 @@
+public interface IConvertor {
+	
+	public  double fromCurrencyToUSD(double summa, Currency cur);
+	public  double fromUSDToCurrency(double summa, Currency cur);
+	public double fromCurrencyToCurrency(double summa, Currency from, Currency to);
+}
+
+
+
+
+
+
+public class Convertor implements IConvertor {
+	
+	public double fromCurrencyToUSD(double summa, Currency cur){
+		if (cur == Currency.BLR){
+			return summa/1.97;
+		}
+		if (cur == Currency.EUR){
+			return summa*1.16;
+		}
+		if (cur == Currency.PLN){
+			return summa/3.64;
+		}
+		if (cur == Currency.USD){
+			return summa;
+		}
+		return 0;
+	}
+	public double fromUSDToCurrency(double summa, Currency cur){
+		if (cur == Currency.BLR){
+			return summa*1.97;
+		}
+		if (cur == Currency.EUR){
+			return summa/1.16;
+		}
+		if (cur == Currency.PLN){
+			return summa*3.64;
+		}
+		if (cur == Currency.USD){
+			return summa;
+		}
+		return 0;
+	}
+	
+	public double fromCurrencyToCurrency(double summa, Currency from, Currency to){
+		double summaInUsd = fromCurrencyToUSD(summa, from);
+		return fromUSDToCurrency(summaInUsd, to);
+	}
+
+}
+
+
+
+public class Account {
+	
+	double summa;
+	Currency currency;
+	
+	
+	public Account(double summa, Currency currency) {
+		this.summa = summa;
+		this.currency = currency;
+	}
+	
+	
+	public void deposit(double summa, Account account){
+		
+		IConvertor icon = new Convertor();
+		double summaInAccountCurrency = icon.fromCurrencyToCurrency(summa, currency, account.currency);
+		if (summaInAccountCurrency > account.summa){
+			System.out.println("Недостаточно средств");
+			return;
+		}else{
+		account.summa = account.summa - summaInAccountCurrency;
+		this.summa = this.summa + summa;
+		}
+	}
+}
